@@ -1,0 +1,775 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>    
+    <head>
+		<title>Travel Insurance</title>
+		<style>
+			/* Reset default values */
+			html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+    		pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd,
+     		q, s, samp,small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt,
+     		dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot,
+     		thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption,
+     		footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark,
+     		audio, video {
+         		margin: 0;
+         		padding: 0;
+         		font-size: 100%;
+         		vertical-align: baseline;
+			}
+
+			/* Formatting starts */
+
+			#navBar {
+				position: relative;
+				width:600px;
+				height:20px;
+				top: 7em;
+				margin: 0 auto;
+				font-family: Arial;
+				font-weight: bold;
+			}
+			.navBarLinkList {
+				list-style-type: none;
+			}
+			.navBarLinkList a {
+				display: none;
+			}
+
+			#navBar li {
+				/*text-decoration:none;*/
+				display: inline-block;
+			}
+
+			.linkAvailable {
+				text-decoration: underline;
+				cursor: pointer;
+				color: #2263AC; /*#0081F1;*/
+			}
+			.linkNotAvailable {
+				text-decoration: none;
+				cursor: text;
+				color: black;
+			}
+
+
+			#screenView {
+				position: relative;
+				width:600px;
+				height:580px;
+				overflow: hidden;
+				top: 8em;
+				margin: auto;
+				border-style: solid;
+				border-color: #C2E0FF;
+				border-radius: 1.5%;
+			}
+
+			#screenSlider {
+				width: 3000px;
+				height: 580px;
+				position:absolute;
+			}
+
+			.screen {
+				width: 600px;
+				height: 580px;
+				float: left;
+				display: inline-block;
+				box-sizing: border-box;
+				overflow: auto;
+			}
+
+			.screenHeader {
+				font-size: 150%;
+				font-family:verdana;
+				font-weight:bold;
+				background-color: #D9D9D9;
+			}
+
+			.screenBody {
+				text-align: justify;
+				font-family: Arial;
+				padding: 0;
+			}
+
+			.plansCoverageBox {
+				border-style: solid;
+				border-color: #C2E0FF;
+				border-radius: 1.5%;
+				margin: 20px auto 20px auto;
+				width: 27em;
+				height: 13em;
+				box-sizing: border-box;
+			}
+
+			.title {
+				font-size: 110%;
+				font-weight: bold;
+			}
+			.description {
+				font-size: 100%;
+			}
+
+			.plansCoverageBox .title {
+				background-color: #E6E6E6;
+			}
+
+			p {
+				padding: 10px;
+			}
+
+			.selectButtonLink, #insurerSubmitButton {
+    			color: #fff;
+    			font-size: 16px;
+    			font-weight: normal;
+    			padding: 0 10px;
+    			text-align: center;
+    			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.6);
+				width:5em;
+				height:2em;
+    			border: 1px solid #4c88bc;
+    			-webkit-border-radius: 4px;
+    			-moz-border-radius: 4px;
+    			border-radius: 4px;
+    			background: #00acec;
+    			background: -moz-linear-gradient(top, #00acec 0, #007cce 100%);
+    			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00acec), color-stop(100%, #007cce));
+    			background: -webkit-linear-gradient(top, #00acec 0, #007cce 100%);
+    			background: -o-linear-gradient(top, #00acec 0, #007cce 100%);
+    			background: -ms-linear-gradient(top, #00acec 0, #007cce 100%);
+    			background: linear-gradient(to bottom, #00acec 0, #007cce 100%);
+    			filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00acec', endColorstr='#007cce', GradientType=0);
+    			-webkit-box-shadow: none;
+    			-moz-box-shadow: none;
+    			box-shadow: none;
+    			cursor: pointer;
+    			text-decoration:none;
+    			float: right;
+    			margin-right: 1.1em;
+				margin-bottom: 1.1em;
+				line-height:2;
+				cursor: pointer;
+			}
+
+			.limitedPlanA, .limitedPlanB, .comprehensivePlanA, .comprehensivePlanB, .comprehensivePlanC {
+				display: inline-block;
+			}
+
+			.limitedPlanIcon, .comprehensivePlanIcon {
+				float: left;
+				width: 15%;
+				text-align: center;
+				vertical-align: middle;
+				margin-left: 2em;
+				margin-top: 2em;
+			}			
+
+			.limitedPlanText, .comprehensivePlanText {
+				float: right;
+				width: 70%;
+			}
+
+			.limitedPlanA {
+				background-color:#FFFFF5;
+				border-bottom-color: #C2E0FF;
+				border-bottom-style: solid;
+				height: 17em;
+			}
+			.limitedPlanB {
+				background-color:#FFFFE0;
+				height: 17em;
+			}
+			.comprehensivePlanA, .comprehensivePlanB {
+				border-bottom-color: #C2E0FF;
+				border-bottom-style: solid;
+			}
+			.comprehensivePlanA {
+				background-color:#FFFFFF;
+			}
+			.comprehensivePlanB {
+				background-color:#E6F5E6;
+			}
+			.comprehensivePlanC {
+				background-color:#CCEBCC;
+			}
+
+			.comprehensiveCoverageScreen .selectButtonLink {
+				clear: both !important;
+				float: right !important; 
+			}
+
+			.personalDetailsForm {
+				margin: 15px auto 15px auto;
+				width: 35em;
+				height: 28em;
+				box-sizing: border-box;
+			}
+			.insurerSection {
+				margin: 10px 1.5em 10px auto;
+				width: 32em;
+				border-style: solid;
+				border-color: #C2E0FF;
+				border-radius: 1.5%;
+			}
+			.insurerHeader {
+				background-color: #E6E6E6;
+				height: 2em;
+			}
+			.insurerHeaderTitle {
+				float: left;
+				width: 25%;
+				height: 2em;
+				line-height: 0.5;			
+			}
+			.insurerHeaderTitle .title {
+				cursor: pointer;	
+			}
+			.insurerHeaderTrashIcon {
+				float: right;
+				width: 30%;	
+				height: 2em;
+				text-align: right;			
+			}	
+			.trashCanIcon {
+				width: 1.5em;
+				height:1.5em;
+				cursor: pointer;
+				text-align: right;
+			}
+			.insurerBody {
+				margin-top: 1em;
+			}
+			.formElement {
+				display: block;
+				clear: both;
+				width:25em;
+				margin-left: 3em;
+				/*padding: 2px;
+				height: 38px;*/
+			}
+			.insurerHeaderTitle, .insurerHeaderTrashIcon, .formLabel, formInputElem, .errorMessageName, .errorMessageAddress, .errorMessageStartDate, .errorMessageEndDate {
+				display: inline-block;
+				position: relative;
+			}
+			.formLabel {
+				float: left;
+				width: 20%;
+			}
+			.formInputElem {
+				float: right;
+				width: 80%;
+			}
+			.inputTextName, .inputTextAddr1, .inputTextAddr2 {
+				width: 100%;
+			}
+			.inputStartDate, .inputEndDate {
+				width: 40%; 
+			}
+			.errorMessageName, .errorMessageAddress, .errorMessageStartDate, .errorMessageEndDate {
+    			color: #e43333;
+    			clear: both;
+    			float: right;
+				width: 80%;
+				font-size: 90%;
+				padding-bottom: 0.5em;
+			}			
+
+			#linkAndSubmitButton {
+				display: inline-block;
+				margin-left: 3em;
+			}
+			#formLinkWrapper, #submitButtonWrapper{
+				width: 15em;
+				margin-top: 40px;
+			}
+			#formLinkWrapper {
+				float: left;
+				line-height: 2;
+			}	
+			#submitButtonWrapper {
+				float: right;
+			}
+
+			#thankYouMessage {
+				width: 90%;
+				margin-top: 3em;
+				margin-left: auto;
+				margin-right: auto;
+				font-size: 110%;
+				font-weight: bold;
+			}
+			#thankYouMessage p {
+				padding-bottom: 2em;
+			}
+			.planChosen {
+				font-weight: bold;
+				font-style: italic;
+			}
+			.insuredlist {
+				margin-left: 5em;
+			}
+
+		</style>
+	</head>
+<body>
+	<div id="navBar">
+		<ul class="navBarLinkList">
+			<li><a class="topLink" href="#plansScreen">Plans</a></li>
+			<li><a class="topLink" href="#limitedCoverageScreen"> > Limited Coverage</a></li>
+			<li><a class="topLink" href="#comprehensiveCoverageScreen"> > Comprehensive Coverage</a></li>
+			<li><a class="topLink" href="#personalDetailsScreen"> > Personal Details</a></li>
+			<li><a class="topLink" href="#confirmationScreen"> > Confirmation</a></li>
+		</ul>
+	</div>
+	<div id="screenView">
+	  <div id="screenSlider">
+	  	<!-- ++++++++++++++ PLANS SCREEN ++++++++++++++ -->
+	   	<div id="plansScreen" class="screen">
+  	   		<div class="screenHeader">
+  	   			<p>Available Plans</p>
+  	   		</div>	
+  	   		<div class="screenBody">
+  	   			<div class="plansCoverageBox">
+  	   				<p class="title">Limited Coverage</p>
+  	   				<p class="description">Limited coverage plan provides the basic protection, and may not be adequate. It may cost you less, but the coverage is limited to pre defined clause of fixed amount of charges. Must read policy details for benefit and coverage details.</p>
+  	   				<a class="selectButtonLink" href="select" id="limitedCoverageButton">Select</a>
+  	   			</div>
+  	   			<div class="plansCoverageBox">
+  	   				<p class="title">Comprehensive Coverage</p>
+  	   				<p class="description">These plans offer much better and flexible coverage. Most of these plans work like PPO type of 80-20% plan. Means insured has to pay 20% of the cost for the first $5000 per policy period. Policy pays rest 80%.</p>
+  	   				<a class="selectButtonLink" href="select" id="comprehensiveCoverageButton">Select</a>
+  	   			</div>	
+  	   		</div>	
+  	    </div>
+	  	<!-- +++++++++ LIMITED COVERAGE SCREEN ++++++++++++++ -->
+  	    <div id="limitedCoverageScreen" class="screen">
+  	   		<div class="screenHeader">
+  	   			<p>Limited Coverage</p>
+  	   		</div>	
+  	   		<div class="screenBody">
+  	   			<div class="limitedPlanA">
+  	   				<div class="limitedPlanIcon">
+  	   					<p>Limited Plan A</p>
+  	   				</div>	
+  	   				<div class="limitedPlanText">
+  	   					<p class="title">Limited Plan A</p>
+  	   					<p class="description">Limited Plan A provides basic medical coverage for non-U.S. citizens who come to the U.S. for business, pleasure, to study or to immigrate with a maximum coverage of $120,000.</p>
+	 	   				<a class="selectButtonLink" href="select" id="limitedPlanAbutton">Select</a>
+  	   				</div>	
+  	   			</div>	
+  	   			<div class="limitedPlanB">
+  	   				<div class="limitedPlanIcon">
+  	   					<p>Limited Plan B</p>
+  	   				</div>	
+  	   				<div class="limitedPlanText">
+  	   					<p class="title">Limited Plan B</p>
+  	   					<p class="description">Limited Plan B provides basic medical coverage for non-U.S. citizens, who come to the U.S. for business, pleasure, to study orto immigrate with a maximum coverage of $140,000.</p>
+ 	   					<a class="selectButtonLink" href="select" id="limitedPlanBbutton">Select</a>
+  	   				</div>	
+  	   			</div>	
+  	   		</div>	
+  	   	</div>
+  	   	<!-- ++++++++ COMPREHENSIVE COVERAGE SCREEN ++++++++++++++ -->
+  	   	<div id="comprehensiveCoverageScreen" class="screen">
+  	   		<div class="screenHeader">
+  	   			<p>Comprehensive Coverage</p>
+  	   		</div>	
+  	   		<div class="screenBody">
+  	   			<div class="comprehensivePlanA">
+  	   				<div class="comprehensivePlanIcon">
+  	   					<p>Comprehensive Plan A</p>
+  	   				</div>	
+  	   				<div class="comprehensivePlanText">
+  	   					<p class="title">Comprehensive Plan A</p>
+  	   					<p class="description">Plan-A offers medical coverage and emergency services to individuals and families traveling outside their home countries.</p>
+	 	   				<a class="selectButtonLink" href="select" id="comprehensivePlanAbutton">Select</a>
+  	   				</div>	
+  	   			</div>	
+  	   			<div class="comprehensivePlanB">
+  	   				<div class="comprehensivePlanIcon">
+  	   					<p>Comprehensive Plan B</p>
+  	   				</div>	
+  	   				<div class="comprehensivePlanText">
+  	   					<p class="title">Comprehensive Plan B</p>
+  	   					<p class="description">Plan-B offers medical coverage and emergency services to individuals and families traveling outside their home countries. The plan pays 75% of eligible expenses to the selected medical maximum.</p>
+	 	   				<a class="selectButtonLink" href="select" id="comprehensivePlanBbutton">Select</a>
+  	   				</div>	
+  	   			</div>		
+  	   			<div class="comprehensivePlanC">
+  	   				<div class="comprehensivePlanIcon">
+  	   					<p>Comprehensive Plan C</p>
+  	   				</div>	
+  	   				<div class="comprehensivePlanText">
+  	   					<p class="title">Comprehensive Plan C</p>
+  	   					<p class="description">Plan-C offers medical coverage and emergency services to individuals and families traveling outside their home countries.</p>
+	 	   				<a class="selectButtonLink" href="select" id="comprehensivePlanCbutton">Select</a>
+  	   				</div>	
+  	   			</div>	
+  	   		</div>	
+  	   	</div>
+
+ 	   	<!-- +++++++++++ PERSONAL DETAILS SCREEN ++++++++++++++ -->
+		<div id="personalDetailsScreen" class="screen">
+  	   		<div class="screenHeader">
+  	   			<p>Personal Details</p>
+  	   		</div>	
+  	   		<div class="screenBody">
+  	   			<form action="" class="personalDetailsForm">
+  	   				<div class="insurerSection">
+  	   					<div class="insurerHeader">
+  	   						<div class="insurerHeaderTitle"><p class="title">Insured #1</p></div>
+  	   						<div class="insurerHeaderTrashIcon"><img src="trashCanBlack.png" class="trashCanIcon"/></div>
+  	   					</div>	
+  	   					<div class="insurerBody">
+  	   						<div class="formElement">
+  	   							<div class="formLabel"><label for="name">Name</label></div>
+  	   							<div class="formInputElem"><input type="text" name="name" class="inputTextName"></input></div>
+	  	   						<div class="errorMessageName"></div>
+  	   						</div>
+  	   						<div class="formElement">
+  	   							<div class="formLabel"><label for="addressLine1">Address</label></div>
+  	   							<div class="formInputElem"><input type="text" name="addressLine1" class="inputTextAddr1"></input></div>
+  	   						</div>	
+  	   						<div class="formElement">
+  	   							<div class="formLabel"><label for="addressLine2"><label></div>
+  	   							<div class="formInputElem"><input type="text" name="addressLine2" class="inputTextAddr2"></input></div>
+  	   							<div class="errorMessageAddress"></div>
+  	   						</div>
+  	   						<div class="formElement">
+  	   							<div class="formLabel"><label for="startDate">Start Date</label></div>
+  	   							<div class="formInputElem"><input type="date" name="startDate" class="inputStartDate datePicker"></input></div>
+  	   							<div class="errorMessageStartDate"></div>
+  	   						</div>
+  	   						<div class="formElement">
+  	   							<div class="formLabel"><label for="endDate">End Date</label></div>
+  	   							<div class="formInputElem"><input type="date" name="endDate" class="inputEndDate datePicker"></input></div>
+  	   							<div class="errorMessageEndDate"></div>
+  	   						</div>
+  	   						<div style="clear:both;"></div>
+  	   					</div>	
+  	   				</div>	
+					<div id="linkAndSubmitButton">
+  	   					<div id="formLinkWrapper"><a href="" id="addMoreInsuredLink" class="linkAvailable">Add more insured</a></div>
+  	   					<div id="submitButtonWrapper"><input type="submit" value="Submit" id="insurerSubmitButton"/></div>	
+  	   				</div>	
+  	   			</form>	
+  	   		</div>	
+  	   	</div>	
+ 	   	<!-- +++++++++++ CONFIRMATION/THANK YOU SCREEN ++++++++++++++ -->
+  	   	<div id="confirmationScreen"  class="screen">
+  	   		<div class="screenHeader">
+  	   			<p>Confirmation</p>
+  	   		</div>	
+  	   		<div class="screenBody">
+	  	   		<div id="thankYouMessage">
+  		   		</div>
+  		   	</div>	
+  		</div>
+  	  </div>	
+	</div>
+	<div class="footer">
+	</div>	
+</body>
+
+<script src="jquery-1.11.0.js"></script>
+<script>
+
+	var planChosen = " ";
+	var coverageChosen = " ";
+	var numInsurerEntered = 1;
+
+ 	// -------------------------------------------------------------------------------------------------
+	// ------------------------  Top Links, screen and URL hash manipulation    ------------------------
+ 	// -------------------------------------------------------------------------------------------------
+
+ 	// ------------------------------------
+	// "activateScreen" function
+ 	// ------------------------------------	
+ 	function activateScreen(screenId) {
+
+ 		// update the breadcrumbs (top links)
+ 		$(".navBarLinkList a").hide();
+ 		switch(screenId) {
+ 			case "#plansScreen":
+ 				// don't display any top link
+ 				break;
+ 			case "#limitedCoverageScreen":
+ 				$("a[href='#plansScreen'").show().attr("class", "linkAvailable");
+ 				$("a[href='#limitedCoverageScreen'").show().attr("class", "linkNotAvailable");
+ 				break;
+ 			case "#comprehensiveCoverageScreen":
+ 				$("a[href='#plansScreen'").show().attr("class", "linkAvailable");
+ 				$("a[href='#comprehensiveCoverageScreen'").show().attr("class", "linkNotAvailable"); 				 			
+ 				break;		
+ 			case "#personalDetailsScreen":
+ 				$("a[href='#plansScreen'").show().attr("class", "linkAvailable");
+ 				if (coverageChosen = "limited") {
+ 					$("a[href='#limitedCoverageScreen'").show().attr("class", "linkAvailable");
+ 				} else {
+ 					$("a[href='#comprehensiveCoverageScreen'").show().attr("class", "linkAvailable"); 				 			 					
+ 				}
+ 				$("a[href='#personalDetailsScreen'").show().attr("class", "linkNotAvailable"); 				 			 			
+ 				break;	
+ 			case "#confirmationScreen":
+ 				$("a[href='#plansScreen'").show();
+ 				if (coverageChosen = "limited") {
+ 					$("a[href='#limitedCoverageScreen'").show().attr("class", "linkAvailable");
+ 				} else {
+ 					$("a[href='#comprehensiveCoverageScreen'").show().attr("class", "linkAvailable"); 				 			 		
+ 				}
+ 				$("a[href='#personalDetailsScreen'").show().attr("class", "linkAvailable"); 				 			 			
+ 				$("a[href='#confirmationScreen'").show().attr("class", "linkNotAvailable"); 				 			 			
+ 				break;
+ 			default:
+ 				// Set screenId to first screen. Don't display any breadcrumb.
+ 				screenId = "#plansScreen";
+ 				break;		
+ 		}
+
+ 		//update URL hash
+ 		location.hash = screenId;
+
+ 		// display the desired screen
+		$(".screen").hide();
+    	$(screenId).show();
+ 	}
+
+ 	 // ------------------------------------
+ 	// Top Links click event logic
+ 	// ------------------------------------
+ 	$("a.topLink").on("click", function(e){
+ 		e.preventDefault();
+ 		activateScreen($(this).attr("href"));
+ 	});
+
+ 	 // ------------------------------------
+ 	// Update screen based on changes on URL hash
+ 	// ------------------------------------
+ 	$(window).bind("hashchange", function() {
+ 		var URLhash = location.hash;
+ 		activateScreen(URLhash); 		
+ 	});
+ 	//Fire the hashchange event when the page first loads
+	$(window).trigger('hashchange');	
+
+
+ 	// -------------------------------------------------------------------------------------------------
+	// ---------------   Limited and Comprehensive Coverage screens    ---------------------------------
+ 	// -------------------------------------------------------------------------------------------------
+
+ 	// ------------------------------------
+	// Add click event to "Select" buttons
+ 	// ------------------------------------
+	$(".selectButtonLink").click(function(evt){
+
+		evt.preventDefault();
+
+		var ButtonIdValue = $(this).attr("id");
+		switch (ButtonIdValue) {
+			case "limitedCoverageButton":                   // display "Limited Coverage" Screen
+    			activateScreen("#limitedCoverageScreen");
+    			coverageChosen = "limited";
+    			break;
+			case "comprehensiveCoverageButton":             // display "Comprehensive Coverage" Screen
+    			activateScreen("#comprehensiveCoverageScreen");
+    			coverageChosen = "comprehensive";
+				break;				
+			case "limitedPlanAbutton":                      // display "Personal Details" screen
+			case "limitedPlanBbutton":
+			case "comprehensivePlanAbutton":
+			case "comprehensivePlanBbutton":
+			case "comprehensivePlanCbutton":
+
+				// capture the plan chosen by the user
+				switch (ButtonIdValue) {
+					case "limitedPlanAbutton":
+						planChosen = "Limited Plan A";
+						break;
+					case "limitedPlanBbutton":
+						planChosen = "Limited Plan B";
+						break;
+					case "comprehensivePlanAbutton":
+						planChosen = "Comprehensive Plan A";
+						break;
+					case "comprehensivePlanBbutton":
+						planChosen = "Comprehensive Plan B";
+						break;
+					case "comprehensivePlanCbutton":
+						planChosen = "Comprehensive Plan C";
+						break;
+					default:
+						planChosen = "N/A";
+						break;							
+				}
+
+				// display "Personal Details" screen
+    			activateScreen("#personalDetailsScreen");
+				break;
+			default:
+				break;
+		}		
+	});
+
+
+ 	// -------------------------------------------------------------------------------------------------
+	// -------------------------------   Personal Details Screen    ------------------------------------
+ 	// -------------------------------------------------------------------------------------------------
+
+	// Add toggle functionality to Insurer section header
+	/*$(".insurerHeaderTitle").on("click", function(){	
+    	$(this).closest(".insurerHeader").next(".insurerBody").toggle();
+	});*/
+	/*
+	$(".personalDetailsForm").on("click", ".insurerHeader", function(){	
+    	$(this).siblings(".insurerBody").toggle();
+	});	*/
+	$(".personalDetailsForm").on("click", ".insurerHeaderTitle", function(){	
+    	$(this).closest(".insurerHeader").next(".insurerBody").toggle();
+	});	
+
+	$(".personalDetailsForm").on("click", ".trashCanIcon", function(){
+		deleteInsured($(this));
+	});
+
+
+	// add click event to the delete icon
+	$(".trashCanIcon").on("click", function(){
+		deleteInsured($(this));
+	});
+
+	// Hide trash can icon in the first section
+	updateInsurerTitleAndTrashIcon();
+
+	// updateInsurerTitleAndTrashIcon function
+	function updateInsurerTitleAndTrashIcon() {
+		var count = 0;
+		$insurerSection = $(".insurerSection");
+		$insurerSection.each(function(){
+			count = count + 1;
+			$(this).find(".title").text("Insured #" + count);
+			$(this).find(".trashCanIcon").show();					
+		});
+		var numOfSections = $insurerSection.length;
+		if (numOfSections === 1) {
+			$insurerSection.first().find(".trashCanIcon").hide();			
+		}
+	}
+
+	// deleteInsured function
+	function deleteInsured($elemObject){
+		var response = confirm("Are you sure you want to delete this insurer person?");
+		if (response) {
+			$elemObject.closest(".insurerSection").remove();
+			numInsurerEntered = numInsurerEntered - 1;
+			updateInsurerTitleAndTrashIcon();
+		}
+	}
+
+ 	// ------------------------------------
+	// Logic for "addMoreInsured" link
+ 	// ------------------------------------
+	$("#addMoreInsuredLink").click(function(linkEvt) {
+		linkEvt.preventDefault();
+		$(".insurerBody").hide();
+		numInsurerEntered = numInsurerEntered + 1;
+
+		$clonedSection = $(".insurerSection").first().clone();
+		$clonedSection.find(".title").text("Insurer #" + numInsurerEntered);
+		$clonedSection.find(".trashCanIcon").show();					
+		$clonedSection.find(".inputTextName").val("");
+		$clonedSection.find(".inputTextAddr1").val("");
+		$clonedSection.find(".inputTextAddr2").val("");
+ 		$clonedSection.find(".errorMessageName").text("");
+ 		$clonedSection.find(".errorMessageAddress").text("");
+		$clonedSection.find(".errorMessageStartDate").text(""); 				
+ 		$clonedSection.find(".errorMessageEndDate").text(""); 				
+
+		$clonedSection.insertBefore("#linkAndSubmitButton").find(".insurerBody").show();
+
+		// update title and trash Icon
+		updateInsurerTitleAndTrashIcon();
+	});
+
+ 
+ 	// ------------------------------------
+ 	// Add functionality to Submit Button
+ 	// ------------------------------------
+ 	$("#insurerSubmitButton").click( function(e){
+ 		e.preventDefault();
+ 		var insuredName = "";
+ 		var insuredFirstName = "";
+ 		var insuredAddr1 = "";
+ 		var insuredAddr2 = "";
+ 		var insuredStartDate = "";
+ 		var insuredEndDate = "";
+ 		var needToEnterReqField = false;
+
+ 		// Obtain list of insurers entered
+		var $unorderedlistElem = $("<ul class='insuredlist'></ul>");
+
+ 		$(".insurerSection").each(function(){
+
+ 			// Validate Name field
+ 			insuredName = $(this).find(".inputTextName").val();
+ 			if (insuredName === "") {
+ 				needToEnterReqField = true;
+ 				$(this).find(".errorMessageName").text("* This is a required field");
+ 			}
+ 			else { 
+ 				$(this).find(".errorMessageName").text("");
+
+ 				if (insuredFirstName === "") {
+		 			insuredFirstName = insuredName.split(" ")[0]; 					
+ 				}
+ 				var $listElem = $("<li>" + insuredName + "</li>");
+ 				$unorderedlistElem.append($listElem);
+ 			}
+
+			// Validate Address field
+ 			insuredAddr1 = $(this).find(".inputTextAddr1").val();
+ 			insuredAddr2 = $(this).find(".inputTextAddr2").val(); 			
+ 			if (insuredAddr1 === "" && insuredAddr2 === "") {
+ 				needToEnterReqField = true;
+ 				$(this).find(".errorMessageAddress").text("* This is a required field");
+ 			} else {
+ 				$(this).find(".errorMessageAddress").text("");
+ 				}
+
+			// Validate Start Date field
+ 			insuredStartDate = $(this).find(".inputStartDate").val();
+ 			if (insuredStartDate === "") {
+ 				needToEnterReqField = true;
+ 				$(this).find(".errorMessageStartDate").text("* This is a required field");
+ 			} else {
+				$(this).find(".errorMessageStartDate").text(""); 				
+ 			}
+
+			// Validate End Date field
+ 			insuredEndDate = $(this).find(".inputEndDate").val();
+ 			if (insuredEndDate === "") {
+ 				needToEnterReqField = true;
+ 				$(this).find(".errorMessageEndDate").text("* This is a required field");
+ 			} else {
+ 				$(this).find(".errorMessageEndDate").text(""); 				
+ 			}
+ 
+ 		});
+
+ 		// needToEnterReqField = false if required fields were entered
+ 		if (! needToEnterReqField) {
+ 			$("#thankYouMessage").children().remove();
+	 		var $thankYouMsgHTMLpart1 = $("<p>Thank you " + insuredFirstName + " for buying your travel insurance with us. You have chosen <span class='planChosen'>" + planChosen + "</span> Travel Insurance.</p>"); 
+	 		var $thankYouMsgHTMLpart2 = $("<p>Please find below the name of insured/member(s):</p>");
+ 			$("#thankYouMessage").append($thankYouMsgHTMLpart1).append($thankYouMsgHTMLpart2).append($unorderedlistElem);
+			
+			// make confirmation screen visible 		
+    		activateScreen("#confirmationScreen");
+    	}
+ 	});
+
+ 	// prevent users from entering a date, they should only select a date from the calendar
+ 	$(".datePicker").keydown(function (e){e.preventDefault();}).keypress(function (e){e.preventDefault();});
+
+</script>
+</html>
